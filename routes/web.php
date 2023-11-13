@@ -30,7 +30,7 @@ Route::post('/usuarios', [App\Http\Controllers\UsuariosController::class, 'salva
 
 Route::get('/pets/list', [App\Http\Controllers\PetsController::class, 'index'])->name('pets');
 Route::get('/pets/', [App\Http\Controllers\PetsController::class, 'new'])->name('pets-new');
-Route::get('/pets/{user}', [App\Http\Controllers\PetsController::class, 'new'])->name('pets-new-com-user');
+Route::get('/pets-com-dono/{user}', [App\Http\Controllers\PetsController::class, 'new'])->name('pets-new-com-user');
 Route::get('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'edit'])->name('pets-edit');
 Route::put('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'update'])->name('pets-update');
 Route::delete('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'delete'])->name('pets-delete');

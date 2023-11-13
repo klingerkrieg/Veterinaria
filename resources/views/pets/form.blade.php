@@ -10,11 +10,11 @@
                 <div class="card-body">
 
                     @if ($data->exists)
-                        <form method="POST" action="{{ route('pets-update', $data) }}" id="main">
+                        <form method="POST" action="{{ route('pets-update', $data) }}" id="main" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                     @else
-                        <form method="POST" action="{{ route('pets-insert') }}" id="main">
+                        <form method="POST" action="{{ route('pets-insert') }}" id="main" enctype="multipart/form-data">
                             @csrf
                     @endif
 
@@ -54,6 +54,27 @@
                                     name="nome" value="{{ old('nome',$data->nome) }}" autofocus>
 
                                 @error('nome')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="foto" class="col-md-3 col-form-label text-md-end">
+                                Foto</label>
+
+                            <div class="col-md-6">
+                                <input id="foto" type="file" class="date form-control @error('foto') is-invalid @enderror" 
+                                    name="foto">
+
+                                @if ($data->exists && $data->foto != "")
+                                    <img src="{{asset($data->foto)}}" class="rounded" width='200'/>
+                                @endif
+                                
+
+                                @error('foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

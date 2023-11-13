@@ -48,6 +48,7 @@ class PetsController extends Controller
             'especie_id'    => ['required'],
             'nascimento'    => ['required','date_format:d/m/Y'],
             'dono_id'       => ['required','exists:users,id'],
+            'foto'          => ['image','max:1024']
         ];
 
         return Validator::make($data, $rules);
@@ -58,7 +59,8 @@ class PetsController extends Controller
         $especies = Pet::$especies;
 
         $pet = new Pet();
-        $pet->dono_id = $user->id;
+        if ($user)
+            $pet->dono_id = $user->id;
 
         return view('pets.form', ["data"=>$pet, "especies"=>$especies, "donos"=>$donos]);
     }
@@ -69,14 +71,28 @@ class PetsController extends Controller
         return view('pets.form', ["data"=>$pet, "especies"=>$especies, "donos"=>$donos]);
     }
 
+    private function armazenaImagem(Request $request, $data){
+        #SALVA A IMAGEM NA PASTA
+        if ($request->file('foto') != null){
+            #o nome da pasta nao pode ser o mesmo nome de uma rota (pets)
+            $path = $request->file('foto')->store("pets_fotos","public");
+            #nao pode setar o photo do $request, pois nao irá funcionar
+            $data["foto"] = $path;
+        }
+        return $data;
+    }
+
+
     public function salvar(Request $request){
         $validated = $this->validator($request->all(), null)->validate();
+        $validated = $this->armazenaImagem($request, $validated);
         $pet = Pet::create($validated);
         return redirect()->route("pets-edit",$pet)->with("success","Salvo com sucesso");
     }
 
     public function update(Pet $pet, Request $request){
         $validated = $this->validator($request->all())->validate();
+        $validated = $this->armazenaImagem($request, $validated);
         $pet->update($validated);
         return redirect()->back()->with("success","Atualizações salvas");
     }
