@@ -49,6 +49,10 @@
                                 </li>
                             @endif
                         @else
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('usuarios') }}">Usuários</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -73,8 +77,38 @@
         </nav>
 
         <main class="py-4">
+
+            @if (session('success'))
+            <div class="container"><div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="alert alert-success flash-messages text-wrap" role="alert">{{__(session('success'))}}</div>
+                    </div>
+                </div></div>
+            @endif
+
+            @if (session('warning'))
+            <div class="container"><div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="alert alert-warning flash-messages text-wrap" role="alert">{{__(session('warning'))}}</div>
+                    </div>
+                </div></div>
+            @endif
+
+            @if (session('fail'))
+            <div class="container"><div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="alert alert-danger flash-messages text-wrap" role="alert">{{__(session('fail'))}}</div>
+                    </div>
+            </div></div>
+            @endif
+            
             @yield('content')
         </main>
+
+
+        @include('layouts.confirm-modal')
+
+
     </div>
 </body>
 </html>

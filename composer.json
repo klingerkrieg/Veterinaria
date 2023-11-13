@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "funkjedi/composer-include-files": "^1.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
@@ -51,7 +52,10 @@
     "extra": {
         "laravel": {
             "dont-discover": []
-        }
+        },
+        "include_files": [
+            "app/oldHelper.php"
+        ]
     },
     "config": {
         "optimize-autoloader": true,
@@ -59,7 +63,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "funkjedi/composer-include-files": true
         }
     },
     "minimum-stability": "stable",

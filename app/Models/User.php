@@ -12,6 +12,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+
+
+    const CLIENTE = 0;
+    const VETERINARIO = 1;
+
+    public static $tipos = [User::CLIENTE=>"Cliente",
+                            User::VETERINARIO=>"Veterinário"];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +29,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'cpf',
+        'tipo',
     ];
 
     /**
