@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -79,7 +80,8 @@ class UsuariosController extends Controller
 
     public function edit(User $user){
         $tipos = User::$tipos;
-        return view('usuarios.form', ["data"=>$user, "tipos"=>$tipos]);
+        $especies = Pet::$especies;
+        return view('usuarios.form', ["data"=>$user, "tipos"=>$tipos, "especies"=>$especies]);
     }
 
     public function salvar(Request $request){

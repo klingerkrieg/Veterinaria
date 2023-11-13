@@ -36,7 +36,7 @@
                             <label for="cpf" class="col-md-3 col-form-label text-md-end">CPF<span class='red'>*</span></label>
 
                             <div class="col-md-6">
-                                <input id="cpf" type="cpf" class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf',$data->cpf) }}">
+                                <input id="cpf" type="cpf" class="cpf form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf',$data->cpf) }}">
 
                                 @error('cpf')
                                     <span class="invalid-feedback" role="alert">
@@ -50,7 +50,7 @@
                             <label for="tipo" class="col-md-3 col-form-label text-md-end">Tipo de usuário<span class='red'>*</span></label>
 
                             <div class="col-md-6">
-                                <select id="tipo" type="tipo" class="form-control @error('tipo') is-invalid @enderror" name="tipo">
+                                <select id="tipo" class="form-control @error('tipo') is-invalid @enderror" name="tipo">
                                     @foreach ($tipos as $key=>$tipo)
                                         @php
                                             $selected = "";
@@ -136,6 +136,47 @@
                             @endif
                     
                         </div>
+
+                        @if($data->exists)
+
+                        <h4>Pets
+                            <a href="{{route("pets-new-com-user",$data)}}">Adicionar novo</a>
+                        </h4>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Espécie</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->pets as $item)
+                                    <tr>
+                                        <td scope="row">
+                                            <a href="{{route("pets-edit",$item)}}">Editar</a>
+                                        </td>
+                                        <td>{{$item->nome}}</td>
+                                        <td>{{$especies[$item->especie_id]}}</td>
+                                        <td>
+    
+                                            <form action="{{route('pets-delete',$item)}}" method="post"
+                                                class="d-grid col-sm-2">
+                                                @csrf
+                                                @method("DELETE")
+                                                <a href="#" 
+                                                    onclick="main.confirmDeleteModal(this,'{{$item->nome}}')">
+                                                    Excluir
+                                                </a>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        @endif
                     
                 </div>                
             </div>            

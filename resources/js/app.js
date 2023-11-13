@@ -13,12 +13,20 @@ import IMask from 'imask';
 
 document.addEventListener("DOMContentLoaded", function(e) {
     
-    const element = document.getElementById('cpf');
-    if (element != null){
-        const maskOptions = {
-        mask: '000.000.000-00'
-        };
-        const mask = IMask(element, maskOptions);
+    //Mascara para um unico campo de cpf
+    let elements = document.querySelectorAll('.cpf');
+    if (elements.length > 0){
+        for (var i = 0; i < elements.length; i++){
+            IMask(elements[i], {mask: '000.000.000-00'});
+        }
+    }
+
+    //Mascara para campos de data
+    elements = document.querySelectorAll('.date');
+    if (elements.length > 0){
+        for (var i = 0; i < elements.length; i++){
+            IMask(elements[i], {mask: '00/00/0000'});
+        }
     }
 });
 

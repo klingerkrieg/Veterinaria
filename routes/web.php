@@ -27,3 +27,12 @@ Route::get('/usuarios/{user}', [App\Http\Controllers\UsuariosController::class, 
 Route::put('/usuarios/{user}', [App\Http\Controllers\UsuariosController::class, 'update'])->name('usuarios-update');
 Route::delete('/usuarios/{user}', [App\Http\Controllers\UsuariosController::class, 'delete'])->name('usuarios-delete');
 Route::post('/usuarios', [App\Http\Controllers\UsuariosController::class, 'salvar'])->name('usuarios-insert');
+
+Route::get('/pets/list', [App\Http\Controllers\PetsController::class, 'index'])->name('pets');
+Route::get('/pets/', [App\Http\Controllers\PetsController::class, 'new'])->name('pets-new');
+Route::get('/pets/{user}', [App\Http\Controllers\PetsController::class, 'new'])->name('pets-new-com-user');
+Route::get('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'edit'])->name('pets-edit');
+Route::put('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'update'])->name('pets-update');
+Route::delete('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'delete'])->name('pets-delete');
+Route::post('/pets', [App\Http\Controllers\PetsController::class, 'salvar'])->name('pets-insert');
+
