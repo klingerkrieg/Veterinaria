@@ -83,7 +83,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt_BR',
+    #https://github.com/lucascudo/laravel-pt-BR-localization
 
     /*
     |--------------------------------------------------------------------------
