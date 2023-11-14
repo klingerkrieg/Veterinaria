@@ -66,8 +66,10 @@
                                 Foto</label>
 
                             <div class="col-md-6">
+                                @can('veterinario-access')
                                 <input id="foto" type="file" class="date form-control @error('foto') is-invalid @enderror" 
                                     name="foto">
+                                @endcan
 
                                 @if ($data->exists && $data->foto != "")
                                     <img src="{{asset($data->foto)}}" class="rounded" width='200'/>
@@ -130,6 +132,7 @@
 
                         <div class="d-grid gap-2 d-sm-flex offset-sm-3">
 
+                            @can('veterinario-access')
                             <button type="submit" class="col-sm-2 btn btn-primary" form="main">
                                 Salvar
                             </button>
@@ -137,11 +140,13 @@
                             <a href="{{route("pets-new")}}" class="col-sm-2 btn btn-secondary">
                                 Novo
                             </a>
+                            @endcan
                         
                             <a href="{{route("pets")}}" class="col-sm-3 btn btn-secondary">
                                 Listagem
                             </a>
 
+                            @can('veterinario-access')
                             @if ($data->exists)
                             <form action="{{route('pets-delete',$data)}}" method="post"
                                 class="col-sm-2">
@@ -154,12 +159,14 @@
                                 </a>
                             </form>
                             @endif
+                            @endcan
                     
                         </div>
 
 
                     <h4>Vacinações</h4>
 
+                    @can('veterinario-access')
                     <form method="POST" action="{{ route('vacinacoes-insert', $data) }}" id="vacinacoes">
                         @csrf
 
@@ -222,6 +229,7 @@
                             Salvar
                         </button>
                     </div>
+                    @endcan
 
                     @if($data->exists)
 
@@ -242,6 +250,7 @@
                                         <td>{{$item->data->format('d/m/Y')}}</td>
                                         <td>{{$item->validade->format('d/m/Y')}}</td>
                                         <td>{{$item->veterinario->name}}</td>
+                                        @can('veterinario-access')
                                         <td>
                                             <form action="{{route('vacinacoes-delete',$item)}}" method="post"
                                                 class="d-grid col-sm-2">
@@ -253,6 +262,7 @@
                                                 </a>
                                             </form>
                                         </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -6,6 +6,7 @@ use App\Models\Pet;
 use App\Models\User;
 use App\Models\Vacina;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -28,6 +29,12 @@ class PetsController extends Controller
     public function index(Request $request) {
 
         $listagem = Pet::orderBy("name");
+
+        #so permite que o cliente veja os proprios pets
+        #esse if nao ira entrar quando for um veterinario
+        if ($request->user()->cannot("veterinario-access")){
+            $listagem->where("dono_id",Auth::user()->id);
+        }
 
         if (isset($request->search)){
             $listagem->where("pets.nome","like","%$request->search%");

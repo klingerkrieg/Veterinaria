@@ -21,10 +21,11 @@
                             <button type="submit" class="col-md-2 btn btn-primary">
                                 Pesquisar
                             </button>
-
+                            @can('veterinario-access')
                             <a href="{{route("pets-new")}}" class="col-md-1 btn btn-secondary mx-1">
                                 Novo
                             </a>
+                            @endcan
                         </div>
                     </form>
 
@@ -50,8 +51,8 @@
                                     <td>{{$especies[$item->especie_id]}}</td>
                                     <td>{{$item->dono->name}}</td>
                                     <td>{{count($item->vacinacoes)}}</td>
+                                    @can('veterinario-access')
                                     <td>
-
                                         <form action="{{route('pets-delete',$item)}}" method="post"
                                             class="d-grid col-sm-2">
                                             @csrf
@@ -62,6 +63,7 @@
                                             </a>
                                         </form>
                                     </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>
