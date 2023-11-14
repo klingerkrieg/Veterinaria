@@ -36,3 +36,10 @@ Route::put('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'update']
 Route::delete('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'delete'])->name('pets-delete');
 Route::post('/pets', [App\Http\Controllers\PetsController::class, 'salvar'])->name('pets-insert');
 
+Route::get('/vacinas/list', [App\Http\Controllers\VacinasController::class, 'index'])->name('vacinas');
+Route::get('/vacinas/', [App\Http\Controllers\VacinasController::class, 'new'])->name('vacinas-new');
+Route::get('/vacinas/{vacina}', [App\Http\Controllers\VacinasController::class, 'edit'])->name('vacinas-edit');
+Route::put('/vacinas/{vacina}', [App\Http\Controllers\VacinasController::class, 'update'])->name('vacinas-update');
+Route::delete('/vacinas/{vacina}', [App\Http\Controllers\VacinasController::class, 'delete'])->name('vacinas-delete');
+Route::post('/vacinas', [App\Http\Controllers\VacinasController::class, 'salvar'])->name('vacinas-insert');
+
