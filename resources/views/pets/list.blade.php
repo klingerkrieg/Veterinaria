@@ -22,7 +22,7 @@
                                 Pesquisar
                             </button>
                             @can('veterinario-access')
-                            <a href="{{route("pets-new")}}" class="col-md-1 btn btn-secondary mx-1">
+                            <a href="{{route("pets-new")}}" class="col-md-2 btn btn-secondary mx-1 pt-3">
                                 Novo
                             </a>
                             @endcan

@@ -1,3 +1,11 @@
 .red{
     color:red;
 }
+
+.hero-wrap.hero-wrap-2 {
+    height: 170px;
+}
+
+.hero-wrap {
+    background-position: 0px;
+}

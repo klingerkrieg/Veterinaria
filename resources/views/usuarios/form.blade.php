@@ -124,7 +124,7 @@
 
                             @if ($data->exists)
                             <form action="{{route('usuarios-delete',$data)}}" method="post"
-                                class="col-sm-2">
+                                class="col-sm-3">
                                 @csrf
                                 @method("DELETE")
                                 <a href="#" 

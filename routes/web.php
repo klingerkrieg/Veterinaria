@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('home');
 
 Auth::routes();
 
 #todos acessam
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 Route::get('/pets/list', [App\Http\Controllers\PetsController::class, 'index'])->name('pets');
 Route::get('/pets/{pet}', [App\Http\Controllers\PetsController::class, 'edit'])->name('pets-edit');
 
