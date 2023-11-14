@@ -156,6 +156,110 @@
                             @endif
                     
                         </div>
+
+
+                    <h4>Vacinações</h4>
+
+                    <form method="POST" action="{{ route('vacinacoes-insert', $data) }}" id="vacinacoes">
+                        @csrf
+
+                        <div class="row mb-3">
+                            <label for="vacina_id" class="col-md-3 col-form-label text-md-end">
+                                Vacina<span class='red'>*</span></label>
+
+                            <div class="col-md-6">
+                                <select id="vacina_id" class="form-control @error('vacina_id') is-invalid @enderror" name="vacina_id">
+                                    <option></option>
+                                    @foreach ($vacinas as $item)
+                                        @php
+                                            $selected = "";
+                                            if ($item->id == old('vacina_id',$data->vacina_id)){
+                                                $selected = "selected";
+                                            }
+                                        @endphp
+                                        <option value={{$item->id}} {{$selected}}>{{$item->nome}}</option>
+                                    @endforeach
+                                </select>
+                                
+                                @error('vacina_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="data" class="col-md-3 col-form-label text-md-end">
+                                Data<span class='red'>*</span></label>
+
+                            <div class="col-md-6">
+                                <input id="data" type="date" class="form-control @error('data') is-invalid @enderror" 
+                                    name="data" value="{{ old('data',$data->data) }}" >
+
+                                @error('data')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <label for="data" class="col-md-3 col-form-label text-md-end">
+                                Validade</label>
+
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" readonly value="{{ $data->validade }}" >
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div class="d-grid gap-2 d-sm-flex offset-sm-3">
+                        <button type="submit" class="col-sm-2 btn btn-primary" form="vacinacoes">
+                            Salvar
+                        </button>
+                    </div>
+
+                    @if($data->exists)
+
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Validade</th>
+                                <th scope="col">Veterinário</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->vacinacoes as $item)
+                                    <tr>
+                                        <td>{{$item->vacina->nome}}</td>
+                                        <td>{{$item->data->format('d/m/Y')}}</td>
+                                        <td>{{$item->validade->format('d/m/Y')}}</td>
+                                        <td>{{$item->veterinario->name}}</td>
+                                        <td>
+                                            <form action="{{route('vacinacoes-delete',$item)}}" method="post"
+                                                class="d-grid col-sm-2">
+                                                @csrf
+                                                @method("DELETE")
+                                                <a href="#" 
+                                                    onclick="main.confirmDeleteModal(this,'{{$item->vacina->nome}} ({{$item->data->format('d/m/Y')}})')">
+                                                    Excluir
+                                                </a>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        @endif
+
                     
                 </div>                
             </div>            

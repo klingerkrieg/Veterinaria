@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use App\Models\User;
+use App\Models\Vacina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -29,10 +30,12 @@ class PetsController extends Controller
         $listagem = Pet::orderBy("name");
 
         if (isset($request->search)){
-            $listagem->where("nome","like","%$request->search%");
+            $listagem->where("pets.nome","like","%$request->search%");
             #cpf do dono
-            #$listagem->orWhere("cpf","like","%$request->search%");
-            #$listagem->orWhere("email","like","%$request->search%");
+            $listagem->join('users', 'users.id', '=', 'pets.dono_id');
+            $listagem->orWhere("users.name","like","%$request->search%");
+            $listagem->orWhere("users.cpf","like","%$request->search%");
+            $listagem->orWhere("users.email","like","%$request->search%");
         }
 
         $listagem = $listagem->paginate(10);
@@ -68,7 +71,8 @@ class PetsController extends Controller
     public function edit(Pet $pet){
         $donos = User::all();
         $especies = Pet::$especies;
-        return view('pets.form', ["data"=>$pet, "especies"=>$especies, "donos"=>$donos]);
+        $vacinas = Vacina::all();
+        return view('pets.form', ["data"=>$pet, "especies"=>$especies, "donos"=>$donos, "vacinas"=>$vacinas]);
     }
 
     private function armazenaImagem(Request $request, $data){

@@ -36,6 +36,7 @@
                             <th scope="col">Nome</th>
                             <th scope="col">Espécie</th>
                             <th scope="col">Dono</th>
+                            <th scope="col">Vacinações</th>
                             <th scope="col"></th>
                           </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                     <td>{{$item->nome}}</td>
                                     <td>{{$especies[$item->especie_id]}}</td>
                                     <td>{{$item->dono->name}}</td>
+                                    <td>{{count($item->vacinacoes)}}</td>
                                     <td>
 
                                         <form action="{{route('pets-delete',$item)}}" method="post"
